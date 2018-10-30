@@ -2,7 +2,15 @@
     "name": "v-drag-drop",
     "version": "0.2.0",
     "description": "Minimalistic drag & drop directives for Vue.js 2",
-    "keywords": ["vue", "vuejs", "vuejs2", "vue2", "directive", "drag-and-drop", "javascript"],
+    "keywords": [
+        "vue",
+        "vuejs",
+        "vuejs2",
+        "vue2",
+        "directive",
+        "drag-and-drop",
+        "javascript"
+    ],
     "author": "Simon Ismair",
     "license": "MIT",
     "repository": {

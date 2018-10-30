@@ -5,8 +5,9 @@ window.Demo1 = Vue.component('demo1-basic-usage', {
         <div>
             <h4>Demo 1: Basic usage</h4>
 
-            <div v-draggable.move="myData"
+            <div v-draggable.move="{data: myData, handler: 'handler'}"
                  class="draggableContainer">
+                <div class="handler"></div>
                 Drag me!
             </div>
 

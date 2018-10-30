@@ -165,13 +165,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     inserted: function inserted(el, binding, vnode) {
-        var dragData = binding.value;
         var listeners = _common2.default.getListeners(vnode);
+        var dragData = binding.value;
+        var handler = null;
 
         el.setAttribute('draggable', true);
 
         if (binding.modifiers && binding.modifiers.move) {
             el.style.cursor = 'move';
+        }
+
+        if (binding.value.handler !== undefined) {
+            dragData = binding.value.data;
+            handler = el.getElementsByClassName(binding.value.handler)[0];
+
+            if (handler !== undefined) {
+                el.setAttribute('draggable', false);
+                el.style.cursor = 'default';
+                handler.style.cursor = 'move';
+                handler.addEventListener('mouseover', function () {
+                    el.setAttribute('draggable', true);
+                });
+
+                handler.addEventListener('mouseout', function () {
+                    setTimeout(function () {
+                        el.setAttribute('draggable', false);
+                    }, 50);
+                });
+            }
         }
 
         // Only transfer the key and use an external store for the actual data

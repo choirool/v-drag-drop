@@ -2,13 +2,34 @@ import Common from '@/common';
 
 export default {
     inserted(el, binding, vnode) {
-        const dragData = binding.value;
         const listeners = Common.getListeners(vnode);
+        let dragData = binding.value;
+        let handler = null;
 
         el.setAttribute('draggable', true);
-
+            
         if (binding.modifiers && binding.modifiers.move) {
             el.style.cursor = 'move';
+        }
+
+        if(binding.value.handler !== undefined) {
+            dragData = binding.value.data;
+            handler = el.getElementsByClassName(binding.value.handler)[0];
+
+            if(handler !== undefined) {
+                el.setAttribute('draggable', false);
+                el.style.cursor = 'default';
+                handler.style.cursor = 'move';
+                handler.addEventListener('mouseover', function() {
+                    el.setAttribute('draggable', true);
+                });
+    
+                handler.addEventListener('mouseout', function() {
+                    setTimeout(function() {
+                        el.setAttribute('draggable', false);
+                    }, 50);
+                });
+            }
         }
 
         // Only transfer the key and use an external store for the actual data
